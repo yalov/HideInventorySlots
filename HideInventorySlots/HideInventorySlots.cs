@@ -11,10 +11,14 @@ namespace HideInventorySlots
     [KSPAddon(KSPAddon.Startup.FlightAndEditor, false)]
     public class HideInventorySlots : MonoBehaviour
     {
+
+        HideInventorySlotsSettings settings;
         public void Start()
         {
             GameEvents.onPartActionUIShown.Add(OnPartActionWindowCreated);
             GameEvents.onModuleInventoryChanged.Add(OnModuleInventoryChanged);
+
+            settings = HighLogic.CurrentGame.Parameters.CustomParams<HideInventorySlotsSettings>();
         }
 
 
@@ -27,7 +31,7 @@ namespace HideInventorySlots
             if (window != null)
             {
                 UIPartActionGroup group = window.parameterGroups[name];
-                group.Initialize(name, GroupDisplayName(moduleInventoryPart), false, window);
+                group.Initialize(name, GroupDisplayName(moduleInventoryPart), settings.StartCollapsed, window);
             }
         }
 
@@ -39,7 +43,7 @@ namespace HideInventorySlots
             {
                 ModuleInventoryPart moduleInventoryPart = items[i].PartModule as ModuleInventoryPart;
 
-                BasePAWGroup group = new BasePAWGroup($"{i}", GroupDisplayName(moduleInventoryPart), false);
+                BasePAWGroup group = new BasePAWGroup($"{i}", GroupDisplayName(moduleInventoryPart), settings.StartCollapsed);
                 moduleInventoryPart.Fields["InventorySlots"].group = group;
             }
 
@@ -49,9 +53,29 @@ namespace HideInventorySlots
 
         String GroupDisplayName(ModuleInventoryPart moduleInventoryPart, int? index = null)
         {
-            return String.Format("{0}{1} ({2}/{3})", Localizer.Format("#autoLOC_8320000"),
-                    index is null ? string.Empty : " " + index,
-                    moduleInventoryPart.InventoryItemCount, moduleInventoryPart.InventorySlots);
+            string groupName = Localizer.Format("#autoLOC_8320000");
+
+            if (!(index is null)) groupName += " " + index;
+
+            if (settings.SlotsCount || settings.ItemCount)
+            {
+                groupName += " (";
+
+                if (settings.ItemCount) 
+                    groupName += moduleInventoryPart.InventoryItemCount;
+
+                if (settings.SlotsCount && settings.ItemCount) 
+                    groupName += "/";
+
+                if (settings.SlotsCount) 
+                    groupName += moduleInventoryPart.InventorySlots;
+
+
+
+                groupName += ")";
+            }
+
+            return groupName;
         }
 
  
