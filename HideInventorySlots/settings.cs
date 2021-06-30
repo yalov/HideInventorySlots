@@ -11,15 +11,15 @@ namespace HideInventorySlots
 
     public class HideInventorySlotsSettings : GameParameters.CustomParameterNode
     {
-        public override string Title { get { return Localizer.Format("#HideInventorySlots_title"); } }
-        public override GameParameters.GameMode GameMode { get { return GameParameters.GameMode.CAREER | GameParameters.GameMode.SCIENCE; } }
-        public override string Section { get { return "HideInventorySlots"; } }
-        public override string DisplaySection { get { return "HideInventorySlots"; } }
-        public override int SectionOrder { get { return 1; } }
+        public override string Title { get { return ""; } }
+        public override GameParameters.GameMode GameMode { get { return GameParameters.GameMode.ANY; } }
+        public override string Section { get { return "Hide Inventory Slots"; } }
+        public override string DisplaySection { get { return "Hide Inventory Slots"; } }
+        public override int SectionOrder { get { return 0; } }
         public override bool HasPresets { get { return false; } }
 
         [GameParameters.CustomIntParameterUI("#HideInventorySlots_StartCollapsed", toolTip = "#HideInventorySlots_StartCollapsed_tooltip")]
-        public bool StartCollapsed { get; private set; } = true;
+        public bool StartCollapsed { get; private set; } = false;
 
         [GameParameters.CustomIntParameterUI("#HideInventorySlots_SlotsCount", toolTip = "#HideInventorySlots_SlotsCount_tooltip")]
         public bool SlotsCount { get; private set; } = true;

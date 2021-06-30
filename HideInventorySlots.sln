@@ -13,6 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		HideInventorySlots.version = HideInventorySlots.version
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{FA9F932C-A779-4DE8-976D-C51A7014963D}"
+	ProjectSection(SolutionItems) = preProject
+		GameData\HideInventorySlots\Localization\en-us.cfg = GameData\HideInventorySlots\Localization\en-us.cfg
+		GameData\HideInventorySlots\Localization\ru.cfg = GameData\HideInventorySlots\Localization\ru.cfg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
